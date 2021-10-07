@@ -11,7 +11,7 @@ export class ProductService {
   private readonly _include = {
     images: {
       select: {
-        id: false,
+        id: true,
         url: true,
       },
     },
@@ -32,22 +32,26 @@ export class ProductService {
   }
 
   findAll() {
-    // return `This action returns all product`;
     return this.prisma.product.findMany({
       include: this._include,
     });
   }
 
   findOne(id: number) {
-    // return `This action returns a #${id} product`;
     return this.prisma.product.findUnique({
       where: { id },
       include: this._include,
     });
   }
 
-  update(id: number, data: UpdateProductDto) {
-    // return `This action updates a #${id} product`;
+  update(id: number, dto: UpdateProductDto) {
+    const data: Prisma.ProductUpdateInput = {
+      ...dto,
+      images: {
+        create: dto.images,
+      },
+    };
+
     return this.prisma.product.update({
       where: { id },
       data,
@@ -56,7 +60,6 @@ export class ProductService {
   }
 
   remove(id: number) {
-    // return `This action removes a #${id} product`;
     return this.prisma.product.delete({
       where: { id },
     });

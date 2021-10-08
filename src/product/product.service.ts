@@ -48,7 +48,11 @@ export class ProductService {
     const data: Prisma.ProductUpdateInput = {
       ...dto,
       images: {
-        create: dto.images,
+        upsert: dto.images.map((updateImageDto) => ({
+          where: { id: updateImageDto.id },
+          update: { url: updateImageDto.url },
+          create: { url: updateImageDto.url },
+        })),
       },
     };
 

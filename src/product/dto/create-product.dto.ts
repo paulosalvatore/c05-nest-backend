@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
 import {
+  ArrayNotEmpty,
   IsArray,
   IsInt,
   IsNotEmpty,
@@ -24,16 +25,9 @@ export class CreateProductDto extends Product {
   @IsArray()
   @IsOptional()
   images?: CreateImageDto[];
+
+  @IsInt({ each: true })
+  @IsArray()
+  @ArrayNotEmpty()
+  categoriesIds: number[];
 }
-
-/*
-TODO:
-Backend:
-OK - Substituir images do tipo do Prisma com uma entidade para a imagem
-- Adicionar validação da entidade de imagem (URL precisa ser válida)
-- Transformar a lista de entidades de imagem em uma declaração que o Prisma conseguirá persistir
-as informações relacionadas
-
-Frontend:
-- Enviar uma lista de objetos com a estrutura da entidade imagem
-*/

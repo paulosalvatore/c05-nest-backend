@@ -1,3 +1,4 @@
+import { Category } from 'src/category/entities/category.entity';
 import { Image } from 'src/image/entities/image.entity';
 
 export class Product {
@@ -5,4 +6,5 @@ export class Product {
   name: string;
   price?: number;
   images?: Image[];
+  categories: Category[];
 }

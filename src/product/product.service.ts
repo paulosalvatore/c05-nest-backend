@@ -8,20 +8,28 @@ import { UpdateProductDto } from './dto/update-product.dto';
 export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private readonly _include = {
+  private readonly _include: Prisma.ProductInclude = {
     images: {
       select: {
         id: true,
         url: true,
       },
     },
+    categories: true,
   };
 
   create(dto: CreateProductDto) {
+    const categoriesIds = dto.categoriesIds;
+
+    delete dto.categoriesIds;
+
     const data: Prisma.ProductCreateInput = {
       ...dto,
       images: {
         create: dto.images,
+      },
+      categories: {
+        connect: categoriesIds.map((categoryId) => ({ id: categoryId })),
       },
     };
 
@@ -45,6 +53,10 @@ export class ProductService {
   }
 
   update(id: number, dto: UpdateProductDto) {
+    const categoriesIds = dto.categoriesIds;
+
+    delete dto.categoriesIds;
+
     const data: Prisma.ProductUpdateInput = {
       ...dto,
       images: {
@@ -53,6 +65,9 @@ export class ProductService {
           update: { url: updateImageDto.url },
           create: { url: updateImageDto.url },
         })),
+      },
+      categories: {
+        connect: categoriesIds.map((categoryId) => ({ id: categoryId })),
       },
     };
 

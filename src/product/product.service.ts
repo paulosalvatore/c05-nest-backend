@@ -67,7 +67,7 @@ export class ProductService {
         })),
       },
       categories: {
-        connect: categoriesIds.map((categoryId) => ({ id: categoryId })),
+        connect: categoriesIds?.map((categoryId) => ({ id: categoryId })) || [],
       },
     };
 

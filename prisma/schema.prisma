@@ -35,3 +35,10 @@ model Category {
 
   products Product[]
 }
+
+model User {
+  id Int @id @default(autoincrement())
+
+  name String @unique
+  cpf  String @unique
+}

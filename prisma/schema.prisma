@@ -41,4 +41,7 @@ model User {
 
   name String @unique
   cpf  String @unique
+
+  email    String @unique
+  password String
 }

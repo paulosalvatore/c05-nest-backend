@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 import { Cpf } from 'src/decorators/cpf.decorator';
 import { User } from '../entities/user.entity';
 
@@ -8,4 +8,10 @@ export class CreateUserDto extends User {
 
   @Cpf()
   cpf: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  password: string;
 }

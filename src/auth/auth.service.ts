@@ -6,6 +6,7 @@ import { LoginDto } from './model/LoginDto';
 import * as bcrypt from 'bcrypt';
 import { UserPayload } from './model/UserPayload';
 import { UserToken } from './model/UserToken';
+import { UnauthorizedError } from 'src/errors/unauthorized.error';
 
 @Injectable()
 export class AuthService {
@@ -52,6 +53,8 @@ export class AuthService {
     // Ou a senha é incorreta
     // Por tanto, enviamos um erro
 
-    throw new Error('User and/or password are invalid.');
+    throw new UnauthorizedError(
+      'Email address or password provided is incorrect.',
+    );
   }
 }

@@ -12,8 +12,6 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { User } from 'src/user/entities/user.entity';
-import { CurrentUser } from 'src/decorators/current-user.decorator';
 
 @Controller('product')
 export class ProductController {
@@ -22,12 +20,6 @@ export class ProductController {
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
-  }
-
-  @Get()
-  exampleWithCurrentUser(@CurrentUser() currentUser: User) {
-    return currentUser;
-    // return this.productService.findAll();
   }
 
   @Get()
